@@ -1,5 +1,6 @@
 import pandas as pd
 import torch
+from ultralytics import YOLO
 
 
 def print_data():
@@ -22,6 +23,14 @@ def print_torch():
     print(x)
 
 
+def sanity_yolo():
+    model = YOLO("yolov8n.pt")
+    results = model(
+        "https://ultralytics.com/images/bus.jpg", save=True, save_crop=True
+    )  # predict on an image
+
+
 if __name__ == "__main__":
-    print_torch()
-    print_data()
+    # print_torch()
+    # print_data()
+    sanity_yolo()
