@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 2
+names: ['face_real', 'face_spoof']
+
+roboflow:
+  workspace: mnc-group
+  project: real-fake-selfie-detection
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/mnc-group/real-fake-selfie-detection/dataset/2
