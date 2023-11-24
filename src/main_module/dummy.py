@@ -1,7 +1,8 @@
 import pandas as pd
+import torch
 
 
-def main():
+def print_data():
     # Create a DataFrame
     data = {
         "Name": ["Alice", "Bob", "Charlie"],
@@ -16,5 +17,11 @@ def main():
     print(df)
 
 
+def print_torch():
+    x = torch.rand(5, 3)
+    print(x)
+
+
 if __name__ == "__main__":
-    main()
+    print_torch()
+    print_data()
