@@ -19,8 +19,8 @@ glitch_detector = YOLO(path_to_glitch_detector)
 police = YOLO(path_to_bad_guy_detector)
 
 
-def check_video(path_to_input_video, idx, save_mode=False):
-    video_name = os.path.basename(path_to_input_video)
+def check_video(path_to_input_video, save_mode=False):
+    video_name = os.path.basename(path_to_input_video).strip(".mp4")
     print(f"Started deepfake prediction for {video_name}\n")
 
     # extract frames
@@ -46,12 +46,9 @@ def check_video(path_to_input_video, idx, save_mode=False):
     bad_guy_conf_values_mean = (
         stack([result.probs.data[0] for result in results_police]).mean().item()
     )
-    if bad_guy_conf_values_mean < bad_guy_conf_values_mean_threshold:
-        print(f"{video_name} -> REAL\n\n")
-        return
-
-    print(f"{video_name} -> FAKE\n\n")
-    return
+    if bad_guy_conf_values_mean > bad_guy_conf_values_mean_threshold:
+        print(f"{video_name} -> FAKE [POLICE]\n\n")
+        return False
 
     # post-processing #2
     bad_hand_count = 0
@@ -69,10 +66,11 @@ def check_video(path_to_input_video, idx, save_mode=False):
             bad_hand_count = 0
 
         if bad_hand_count > 3:
-            print(f"{video_name} -> FAKE - glitch\n\n")
-            return
+            print(f"{video_name} -> FAKE [GLITCH]\n\n")
+            return False
 
-    print(f"{video_name} -> REAL - end\n\n")
+    print(f"{video_name} -> REAL [END]\n\n")
+    return True
 
 
 def main():
@@ -83,14 +81,13 @@ def main():
     parser.add_argument(
         "--save",
         help="1 for save prediction images, 0 otherwise",
-        type=bool,
         choices=[0, 1],
     )
     args = parser.parse_args()
     list_of_paths = arg_helper(args.file)
 
     for i, path in enumerate(list_of_paths):
-        check_video(path, i, args.save)
+        check_video(path, args.save)
 
 
 if __name__ == "__main__":
