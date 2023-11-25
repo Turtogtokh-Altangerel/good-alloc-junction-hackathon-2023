@@ -1,17 +1,15 @@
 from utility_module.extract_frames import extract_frames
 from ultralytics import YOLO
 from torch import stack
-import argparse
 
 
-def main ():
-    parser = argparse.ArgumentParser(description="Deepfake detection script")
-    parser.add_argument("-f", "-file", help="Path to the video file", required=True)
-    args = parser.parse_args()
-    # CONFIG
+def detection(file_path):
     path_to_glitch_detector = "src/resources/models/glitch_detector_model.pt"
     path_to_bad_guy_detector = "src/resources/models/best.pt"
-    path_to_input_video = args.input_file
+    path_to_input_video = file_path
+
+    # CONFIG
+
 
     glitch_detector_conf_rate = 0.4
     bad_guy_conf_values_mean_threshold = 0.75
@@ -56,7 +54,3 @@ def main ():
         if bad_hand_count > 3:
             print("Too many bad hand count!")
             quit()
-
-
-if __name__ == "__main__":
-    main()
