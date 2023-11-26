@@ -38,17 +38,4 @@ def extract_frames(video: str, output: str = "", mode: int = 0, num_frames: int 
 
     cap.release()
 
-    message = ""
-    if output == "":
-        message = "Video path: " + video + f"\nExtracted {len(frames)} frames\n"
-    else:
-        message = (
-            "Video path: "
-            + video
-            + "\nOutput path: "
-            + output
-            + f"\n Extracted {len(frames)} frames\n"
-        )
-    print(message)
-
     return frames
