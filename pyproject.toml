@@ -9,6 +9,9 @@ packages = [
     { include = "utility_module", from = "src" },
 ]
 
+[tool.poetry.scripts]
+good_detect = "main_module.main:run"
+
 [tool.poetry.dependencies]
 python = ">=3.10,<3.12.0"
 pandas = "^2.1.3"
