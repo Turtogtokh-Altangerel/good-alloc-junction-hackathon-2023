@@ -2,7 +2,7 @@
 name = "good_alloc_junction_project"
 version = "0.1.0"
 description = ""
-authors = ["Turu <turtogtokh.altangerel@prezi.com>"]
+authors = ["Turu <keatonturkuush.ta.ta@gmail.com>"]
 readme = "README.md"
 packages = [
     { include = "main_module", from = "src" },
