@@ -1,8 +1,8 @@
 <!-- ABOUT THE PROJECT -->
 ## Real or Rendered: The Authenticity Challenge
 Welcome to the project made by the team `good_alloc` for Junction X Budapest 2023 Hackathon challenge.
-This project proposes a multy-layer solution towards the Authenticity Challenge. In short, during evaluation mode of our 
-solution, an input video is analysed and labeled while going through the following layers:
+This project proposes a multi-layer solution towards the Authenticity Challenge. In short, during evaluation mode of our 
+solution, an input video is analyzed and labeled while going through the following layers:
 1. transform a video into a set number of frames
 2. classify each frame, based on a custom trained YOLO model.
 3. detect custom objects, based on a custom trapined YOLO model
