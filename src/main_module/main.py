@@ -7,9 +7,13 @@ from torch import stack
 from pathlib import Path
 import argparse
 import os
+import logging
 
 # constants
 BAD_HAND = 1
+
+# logger setup
+logger = logging.getLogger()
 
 
 # configs
@@ -41,10 +45,11 @@ def check_video(video: str, save_mode: bool = False):
     post-processing #2: decide that the video is fake if a set number of detections are made for glitch
     """
     video_name = os.path.basename(video).strip(".mp4")
-    print(f"Started deepfake prediction for {video_name}\n")
+    logger.info(f"Started deepfake prediction for {video_name}")
 
     # extract frames
     frames = extract_frames(video, num_frames=num_frames)
+    logger.info("Extracted frames from the video")
 
     # prediction
     results_police = police.predict(
@@ -53,6 +58,8 @@ def check_video(video: str, save_mode: bool = False):
         save=save_mode,
         name=find_next_directory(f"{video_name}_", is_detect=False),
     )
+    logger.info("Analysed the video with the classification model")
+
     results_glitch = glitch_detector.predict(
         source=frames,
         conf=glitch_detector_conf_rate,
@@ -60,14 +67,14 @@ def check_video(video: str, save_mode: bool = False):
         save=save_mode,
         name=find_next_directory(f"{video_name}_", is_detect=True),
     )
+    logger.info("Analysed the video with the detection model")
 
     # post-processing #1
-    print("Evaluating results")
     bad_guy_conf_values_mean = (
         stack([result.probs.data[0] for result in results_police]).mean().item()
     )
     if bad_guy_conf_values_mean > bad_guy_conf_values_mean_threshold:
-        print(f"{video_name} -> FAKE [POLICE]\n\n")
+        logger.info(f"Video: {video_name} Result: Fake")
         return False
 
     # post-processing #2
@@ -86,14 +93,14 @@ def check_video(video: str, save_mode: bool = False):
             bad_hand_count = 0
 
         if bad_hand_count > bad_hand_num_of_sequential_occurrence_threshold:
-            print(f"{video_name} -> FAKE [GLITCH]\n\n")
+            logger.info(f"Video: {video_name} Result: Real")
             return False
 
-    print(f"{video_name} -> REAL [END]\n\n")
+    logger.info(f"Video: {video_name} Result: Real")
     return True
 
 
-def main():
+def run():
     parser = argparse.ArgumentParser(description="Deepfake detection script")
     parser.add_argument(
         "-f", "--file", type=str, help="Path to video file or directory", required=True
@@ -112,4 +119,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    run()
