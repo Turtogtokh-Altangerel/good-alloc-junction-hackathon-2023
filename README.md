@@ -3,6 +3,7 @@
 Welcome to the project made by the team `good_alloc` for Junction X Budapest 2023 Hackathon challenge.
 This project proposes a multi-layer solution towards the Authenticity Challenge. In short, during evaluation mode of our 
 solution, an input video is analyzed and labeled while going through the following layers:
+
 1. transform a video into a set number of frames
 2. classify each frame, based on a custom trained YOLO model.
 3. detect custom objects, based on a custom trapined YOLO model
@@ -10,7 +11,7 @@ solution, an input video is analyzed and labeled while going through the followi
 
 <!-- GETTING STARTED -->
 ## Getting Started
-To try our solution locally, please set up our project locally by following the steps below.
+To try our solution, please set up our project locally by following the steps below.
 ### Prerequisites
 Make sure you have Python version `>=3.10,<3.12.0` installed on your machine.
 
@@ -94,8 +95,12 @@ You can open issues at [open issues](https://github.com/Turtogtokh-Altangerel/go
 
 <!-- CONTACT -->
 ## Authors
-team code: HyCKjO_kc
-team name: good_alloc
+- team code: HyCKjO_kc
+- team name: good_alloc
+- Turu - keatonturkuush.ta.ta@gmail.com
+- Mugi - batbilegmunkhorgil@gmail.com
+- Batuk - batuka987@gmail.com
+- Namnaa - amnansuren.buuveibaatar@gmail.com
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
